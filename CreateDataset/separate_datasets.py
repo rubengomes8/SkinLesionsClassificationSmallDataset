@@ -14,15 +14,15 @@ print("--- %s seconds ---" % (time.time() - start_time))
 p_origin = "/home/ruben/Desktop/train/"
 t_origin = "/home/ruben/Desktop/truth/labels.csv"
 
-# Dataset de treino - porção 70% do treino
+# Dataset de treino - porção 70% do treino -> 35
 p_train = "/home/ruben/Desktop/smalltrain2018/"
 t_train = "/home/ruben/Desktop/smalltrain2018/labels.csv"
 
-# Dataset de validação - porção 17% do treino
+# Dataset de validação - porção 17% do treino -> 9
 p_val = "/home/ruben/Desktop/smallval2018/"
 t_val = "/home/ruben/Desktop/smallval2018/labels.csv"
 
-# Dataset de teste - porção 13% do treino
+# Dataset de teste - porção 13% do treino -> 7
 p_test = "/home/ruben/Desktop/smalltest2018/"
 t_test = "/home/ruben/Desktop/smalltest2018/labels.csv"
 
@@ -88,7 +88,7 @@ for file in files:
         index = file[:len(file) - 4]  # tira o .jpg
         image = cv2.imread(root + file)
         value = randint(1, 100)
-        if 1 <= value <= 17: # 17%
+        if 1 <= value <= 9: # 17% -> 9
             # Image goes to validation set
             cv2.imwrite(p_val+'%s' %str(file), image)
             if labels_dict[index] == 1:  # MEL
@@ -105,7 +105,7 @@ for file in files:
                 val_csv_list.append((str(index), '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
             elif labels_dict[index] == 7:  # VASC
                 val_csv_list.append((str(index), '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
-        elif 18 <= value <= 30: # 13%
+        elif 18 <= value <= 24: # 13% -> 7
             # Image goes to test set
             cv2.imwrite(p_val+'%s' %str(file), image)
             if labels_dict[index] == 1:  # MEL
@@ -122,7 +122,7 @@ for file in files:
                 test_csv_list.append((str(index), '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
             elif labels_dict[index] == 7:  # VASC
                 test_csv_list.append((str(index), '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
-        else:
+        elif 31 <= value <= 65:
             # Image goes to training set
             cv2.imwrite(p_train+'%s' %str(file), image)
             if labels_dict[index] == 1:  # MEL

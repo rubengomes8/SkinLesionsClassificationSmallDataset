@@ -116,8 +116,8 @@ class DataAugmentation:
             list_total.append((str(name_int), '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
             cv2.imwrite(path + '%s' % str(name_int) + '_vf.jpg', img_flip)
             list_total.append((str(name_int)+'_vf', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
-            cv2.imwrite(path+'%s' %str(name_int)+'_rot90.jpg', img_rot)
-            list_total.append((str(name_int)+'_rot90', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
+            cv2.imwrite(path+'%s' %str(name_int)+'_rot.jpg', img_rot)
+            list_total.append((str(name_int)+'_rot', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0', '0.0'))
 
         elif class_lesion == 7: # VASC -> 2 artificial
             img = self.image.copy()
@@ -127,7 +127,7 @@ class DataAugmentation:
             list_total.append((str(name_int), '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
             cv2.imwrite(path + '%s' % str(name_int) + '_vf.jpg', img_flip)
             list_total.append((str(name_int) + '_vf', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
-            cv2.imwrite(path + '%s' % str(name_int) + '_rot90.jpg', img_rot)
+            cv2.imwrite(path + '%s' % str(name_int) + '_rot.jpg', img_rot)
             list_total.append((str(name_int) + '_rot', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
 
         else:

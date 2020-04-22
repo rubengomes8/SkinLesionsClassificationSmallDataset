@@ -1,3 +1,7 @@
+'''
+BKL, DF, VASC
+'''
+
 import cv2
 import os
 from operator import itemgetter
@@ -12,28 +16,42 @@ from sklearn.metrics import confusion_matrix
 start_time = time.time()
 
 p_train = '/home/ruben/Desktop/smalltrain2018'
-t_train = '/home/ruben/Desktop/smalltrain2018/labels.csv'
+t_train = '/home/ruben/Desktop/HierSmall/d/labels.csv'
 
-p_val = '/home/ruben/Desktop/smallval2018'
-t_val = '/home/ruben/Desktop/smallval2018/labels.csv'
+p_val = '/home/ruben/Desktop/val2018'
+t_val = '/home/ruben/Desktop/HierSmall/val/d/labels.csv'
 
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 
-def import_dataset(path_dataset, mode):
+def import_dataset(path_dataset, mode, val=False):
     dataset = []
     dataset_unsorted = []
     print("Start importing " + mode + " images...")
     for filename in os.listdir(path_dataset):
         if filename.endswith(".jpg"):
-            complete_path = os.path.join(path_dataset, filename)
-            image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
-            dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
-            image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
-            image_filename = [filename, image]
-            dataset_unsorted.append(image_filename)
+            if val == True:
+                index = filename[:len(filename)-4]
+                if index in dict_labels_val:
+                    complete_path = os.path.join(path_dataset, filename)
+                    image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
+                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
+                    dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
+                    image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
+                    image_filename = [filename, image]
+                    dataset_unsorted.append(image_filename)
+                else:
+                    continue
+            else:
+                complete_path = os.path.join(path_dataset, filename)
+                image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
+                dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
+                image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
+                image_filename = [filename, image]
+                dataset_unsorted.append(image_filename)
+
         else:
             continue
 
@@ -48,7 +66,7 @@ def import_dataset(path_dataset, mode):
 
 def assign_labels(path_groundtruth):
     target = []
-    counter = {'MEL': 0, 'NV': 0, 'BCC': 0, 'AKIEC': 0, 'BKL': 0, 'DF': 0, 'VASC': 0}
+    counter = {'BKL': 0, 'DF': 0, 'VASC': 0}
     i = 0
     with open(path_groundtruth, 'r') as file:
         reader = csv.reader(file)
@@ -56,32 +74,22 @@ def assign_labels(path_groundtruth):
             if i == 0:
                 i += 1
                 continue
-            if row[1] == '1.0':  # MEL
-                counter['MEL'] += 1
-                target.append(0)
-            elif row[2] == '1.0':  # NV
-                counter['NV'] += 1
-                target.append(1)
-            elif row[3] == '1.0':  # BCC
-                counter['BCC'] += 1
-                target.append(2)
-            elif row[4] == '1.0':  # AKIEC
-                counter['AKIEC'] += 1
-                target.append(3)
-            elif row[5] == '1.0':  # BKL
+
+            if row[1] == '1.0': # BKL
+                dict_labels_val[row[0]] = 'BKL'
                 counter['BKL'] += 1
-                target.append(4)
-            elif row[6] == '1.0':  # DF
+                target.append(0)
+            elif row[2] == '1.0': # DF
+                dict_labels_val[row[0]] = 'DF'
                 counter['DF'] += 1
-                target.append(5)
-            elif row[7] == '1.0':  # VASC
+                target.append(1)
+            elif row[3] == '1.0':  # VASC
+                dict_labels_val[row[0]] = 'VASC'
                 counter['VASC'] += 1
-                target.append(6)  # BCC
-            else:
-                continue
+                target.append(2)
     print(counter)
     file.close()
-    return target
+    return target, counter
 
 
 def plot_val_train_error(fit):
@@ -104,7 +112,7 @@ def plot_val_train_error(fit):
     plt.show()
 
 
-def create_model(modelo, tl=True):
+def create_model(modelo, tl=False):
     if modelo == 'vgg':
         from tensorflow.keras.applications.vgg19 import VGG19
         from tensorflow.keras.layers import Dense
@@ -119,7 +127,7 @@ def create_model(modelo, tl=True):
         model.add(Dense(units=4096, activation="relu"))
         model.add(Dense(units=4096, activation="relu"))
         model.add(tf.keras.layers.Dropout(0.5))
-        model.add(Dense(units=7, activation="softmax"))
+        model.add(Dense(units=2, activation="softmax"))
 
     elif modelo == 'resnet50':
         from tensorflow.keras.applications.resnet import ResNet50
@@ -133,7 +141,7 @@ def create_model(modelo, tl=True):
         model = tf.keras.Sequential(resnet)
         model.add(GlobalAveragePooling2D())
         model.add(tf.keras.layers.Dropout(0.5))
-        model.add(Dense(units=7, activation="softmax"))
+        model.add(Dense(units=2, activation="softmax"))
 
     elif modelo == 'resnet101':
 
@@ -148,7 +156,7 @@ def create_model(modelo, tl=True):
         model = tf.keras.Sequential(resnet)
         model.add(GlobalAveragePooling2D())
         model.add(tf.keras.layers.Dropout(0.5))
-        model.add(Dense(units=7, activation="softmax"))
+        model.add(Dense(units=3, activation="softmax"))
 
     elif modelo == 'densenet':
 
@@ -163,7 +171,7 @@ def create_model(modelo, tl=True):
         model = tf.keras.Sequential(densenet)
         model.add(GlobalAveragePooling2D())
         model.add(tf.keras.layers.Dropout(0.5))
-        model.add(Dense(units=7, activation="softmax"))
+        model.add(Dense(units=3, activation="softmax"))
 
     else:
         print("Esse modelo não existe!")
@@ -171,38 +179,51 @@ def create_model(modelo, tl=True):
 
     return model
 
-x_train = import_dataset(p_train, 'training')
-y_train = assign_labels(t_train)
 
-x_val = import_dataset(p_val, 'validation')
-y_val = assign_labels(t_val)
+x_train = import_dataset(p_train, 'training', False)
+print("x_train: ", len(x_train))
+y_train, counter = assign_labels(t_train)
+print("y_train: ", len(y_train))
+print(counter)
+
+w_0_float = float(counter['BKL'])
+w_1_float = float(counter['DF'])
+w_2_float = float(counter['VASC'])
+w_total = w_0_float + w_1_float + w_2_float
+
+w_0 = w_total / w_0_float
+w_1 = w_total / w_1_float
+w_2 = w_total / w_2_float
+
+print("w_0: ", w_0_float)
+print("w_1: ", w_1_float)
+print("w_2: ", w_2_float)
+print("Total: ", w_total)
+
+print(type(x_train))
+print(type(x_train[0]))
+print(type(y_train[0]))
+
+
+dict_labels_val = {}
+y_val, counter = assign_labels(t_val)
+print("y_val: ", len(y_val))
+x_val = import_dataset(p_val, 'validation', True)
+print("x_val: ", len(x_val))
 
 print("Images imported.")
 
-no_epochs = 50
+no_epochs = 35
 lr = 1e-5
-no_classes = 7
+no_classes = 3
 batch_size = 10
 
-# NÃO ESQUECER DE DEFINIR !!!
-'''
-w_0 = 24012. / 2697
-w_1 = 24012. / 15936
-w_2 = 24012. / 1272
-w_3 = 24012. / 834
-w_4 = 24012. / 2625
-w_5 = 24012. / 291
-w_6 = 24012. / 357
-'''
-class_weight = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
-# class_weight = {0: w_0, 1: w_1, 2: w_2, 3: w_3, 4: w_4, 5: w_5, 6: w_6}
 
+class_weight = {0: w_0, 1: w_1, 2: w_2}
 y_train_cat = keras.utils.to_categorical(y_train, no_classes)
 y_val_cat = keras.utils.to_categorical(y_val, no_classes)
 
 ################################ MODEL ################################
-from tensorflow.keras.callbacks import EarlyStopping
-import datetime
 
 # ADJUST LEARNING RATE IF VALIDATION DOES NOT IMPROVE
 def scheduler(epoch):
@@ -215,31 +236,27 @@ def scheduler(epoch):
     else:
         return lr / 100
 
+
 scheduler_cb = tf.keras.callbacks.LearningRateScheduler(scheduler)
 
-
-checkpoint_path = {'vgg': "/home/ruben/Desktop/Small/Flat/vgg/cp.ckpt",
-                   'resnet': "/home/ruben/Desktop/Small/Flat/resnet/cp.ckpt",
-                   'densenet': "/home/ruben/Desktop/Small/Flat/densenet/cp.ckpt"}
-
-checkpoint_dir = os.path.dirname(checkpoint_path['vgg'])
+checkpoint_path = "/home/ruben/Desktop/Small/Hier/d/cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
 
 # Create a callback that saves the model's weights
-cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path['vgg'],
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1, save_best_only=True)
 
-model = create_model("vgg", tl=False)  # vgg, resnet50, resnet101, densenet121
+model = create_model("densenet", tl=True)  # vgg, resnet50, resnet101, densenet121
 model.summary()
 #######################################################################
 
 adam = tf.keras.optimizers.Adam(lr=1e-5)
 model.compile(loss=keras.losses.categorical_crossentropy, optimizer=adam, metrics=['accuracy'])
-
 fit = model.fit(x_train, y_train_cat, batch_size=batch_size, class_weight=class_weight,
                 callbacks=[scheduler_cb, cp_callback], epochs=no_epochs, shuffle=True,
                 validation_data=(x_val, y_val_cat))
-model.load_weights(['vgg'])
+model.load_weights(checkpoint_path)
 
 ########################### Evaluate in test set ############################
 y_pred = model.predict_classes(x_val)
@@ -251,3 +268,5 @@ score = model.evaluate(x_val, y_val_cat, verbose=1)
 print(f'Val loss: {score[0]} / Val accuracy: {score[1]}')
 
 plot_val_train_error(fit)
+
+print("--- %s seconds ---" % (time.time() - start_time))
