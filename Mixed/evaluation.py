@@ -4,7 +4,7 @@ import numpy
 ben_empty = False
 mal_empty = False
 mel_empty = False
-flat_empty = False
+flat_empty = True
 
 if not ben_empty:
     path_ben_csv = '/home/ruben/Desktop/teste_ben_indeta.csv'
@@ -27,14 +27,15 @@ path_mel_csv = '/home/ruben/Desktop/teste_mel_indeta.csv'
 path_flat_csv = '/home/ruben/Desktop/teste_flat_indeta.csv'
 
 df_mel = pd.read_csv(path_mel_csv)
-
-df_flat = pd.read_csv(path_flat_csv)
+if not flat_empty:
+    df_flat = pd.read_csv(path_flat_csv)
+    flat_pred = df_flat['FLAT_PRED'].to_numpy()
+    flat = df_flat['FLAT_TRUTH'].to_numpy()
 
 
 mel_pred = df_mel['MEL_PRED'].to_numpy()
 mel = df_mel['MEL_TRUTH'].to_numpy()
-flat_pred = df_flat['FLAT_PRED'].to_numpy()
-flat = df_flat['FLAT_TRUTH'].to_numpy()
+
 
 
 
