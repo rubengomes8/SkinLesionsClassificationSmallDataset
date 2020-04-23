@@ -1,0 +1,90 @@
+47 19 9 12 25 2 0
+62 526 14 8 47 12 7
+0 1 31 7 2 1 2
+0 0 4 17 6 0 0
+12 10 5 12 101 4 2
+0 0 2 0 0 9 0
+0 3 1 1 0 0 12
+
+Class 0
+True Positive: 47
+True Negative: 847
+False Positive: 74
+False Negative: 67
+Sensibility for lesion 0: 0.41228070175438597
+Specificity for lesion 0: 0.9196525515743756
+Precision for lesion 0: 0.3884297520661157
+Accuracy for lesion 0: 0.863768115942029
+BACC_0: 0.3884297520661157
+
+Class 1
+True Positive: 526
+True Negative: 326
+False Positive: 33
+False Negative: 150
+Sensibility for lesion 1: 0.7781065088757396
+Specificity for lesion 1: 0.9080779944289693
+Precision for lesion 1: 0.9409660107334525
+Accuracy for lesion 1: 0.8231884057971014
+BACC_1: 0.9409660107334525
+
+Class 2
+True Positive: 31
+True Negative: 956
+False Positive: 35
+False Negative: 13
+Sensibility for lesion 2: 0.7045454545454546
+Specificity for lesion 2: 0.9646821392532795
+Precision for lesion 2: 0.4696969696969697
+Accuracy for lesion 2: 0.9536231884057971
+BACC_2: 0.4696969696969697
+
+Class 3
+True Positive: 17
+True Negative: 968
+False Positive: 40
+False Negative: 10
+Sensibility for lesion 3: 0.6296296296296297
+Specificity for lesion 3: 0.9603174603174603
+Precision for lesion 3: 0.2982456140350877
+Accuracy for lesion 3: 0.9516908212560387
+BACC_3: 0.2982456140350877
+
+Class 4
+True Positive: 101
+True Negative: 809
+False Positive: 80
+False Negative: 45
+Sensibility for lesion 4: 0.6917808219178082
+Specificity for lesion 4: 0.9100112485939258
+Precision for lesion 4: 0.5580110497237569
+Accuracy for lesion 4: 0.8792270531400966
+BACC_4: 0.5580110497237569
+
+Class 5
+True Positive: 9
+True Negative: 1005
+False Positive: 19
+False Negative: 2
+Sensibility for lesion 5: 0.8181818181818182
+Specificity for lesion 5: 0.9814453125
+Precision for lesion 5: 0.32142857142857145
+Accuracy for lesion 5: 0.9797101449275363
+BACC_5: 0.32142857142857145
+
+Class 6
+True Positive: 12
+True Negative: 1007
+False Positive: 11
+False Negative: 5
+Sensibility for lesion 6: 0.7058823529411765
+Specificity for lesion 6: 0.9891944990176817
+Precision for lesion 6: 0.5217391304347826
+Accuracy for lesion 6: 0.9845410628019323
+BACC_6: 0.5217391304347826
+
+Balanced sensitivity: 0.677201041120859
+Balanced specificity: 0.9476258865265275
+Weighted BACC: 0.7225075285790545
+
+flat: 0

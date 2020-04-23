@@ -164,11 +164,11 @@ x_val = import_dataset(p_val, 'validation')
 x_flat = []
 y_flat = []
 
-eta_1 = 1
-eta_2 = 1
-eta_3 = 1
-eta_4 = 1
-eta_5 = 1
+eta_1 = 0
+eta_2 = 0
+eta_3 = 0
+eta_4 = 0
+eta_5 = 0
 
 if len (x_val) >= 1:
     y_pred = model1.predict_classes(x_val)
