@@ -1,6 +1,7 @@
 no_classes = 7
-p = {0: 214/2011, 1: 1393/2011, 2: 90/2011, 3: 49/2011, 4: 224/2011, 5: 18/2011, 6: 23/2011} # val
-# p = {0: 1607/2011, 1: 404/2011} # block 1
+# {'MEL': 94, 'NV': 621, 'BCC': 40, 'AKIEC': 24, 'BKL': 94, 'DF': 7, 'VASC': 12} total = 892
+p = {0: 94/892, 1: 621/892, 2: 40/892, 3: 24/892, 4: 94/892, 5: 7/892, 6: 12/892} # val
+# p = {0: 1607/892, 1: 404/892} # block 1
 # p = {0: 178/1502, 1: 1324/1502} # block 2
 # p = {0: 234/364, 1: 131/365} # block 3
 # p = {0: 181/216, 1: 13/216, 2: 22/216} # block 4
@@ -51,7 +52,7 @@ def calculate_acc(lesion, matrix):
     return acc, se, sp, tp/(tp+fp), prec
 
 
-matrix = read_matrix("/home/ruben/PycharmProjects/SkinLesions4/MistoResNet/flat_resnet.txt")
+matrix = read_matrix("/home/ruben/PycharmProjects/SkinLesions6/Flat/DN/results.txt")
 print(matrix)
 acc_total = 0.0
 se_total = 0.0

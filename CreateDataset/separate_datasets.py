@@ -8,11 +8,9 @@ from random import randint
 
 start_time = time.time()
 
-print("--- %s seconds ---" % (time.time() - start_time))
-
 # Dataset de treino original
-p_origin = "/home/ruben/Desktop/train/"
-t_origin = "/home/ruben/Desktop/truth/labels.csv"
+p_origin = "/home/ruben/Desktop/train2018/"
+t_origin = "/home/ruben/Desktop/train2018/labels.csv"
 
 # Dataset de treino - porção 70% do treino -> 35
 p_train = "/home/ruben/Desktop/smalltrain2018/"
@@ -107,7 +105,7 @@ for file in files:
                 val_csv_list.append((str(index), '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '1.0'))
         elif 18 <= value <= 24: # 13% -> 7
             # Image goes to test set
-            cv2.imwrite(p_val+'%s' %str(file), image)
+            cv2.imwrite(p_test+'%s' %str(file), image)
             if labels_dict[index] == 1:  # MEL
                 test_csv_list.append((str(index), '1.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0'))
             elif labels_dict[index] == 2:  # NV
@@ -164,3 +162,5 @@ with open (t_test, mode = 'w') as csv_file:
     writer.writeheader()
     for _tuple in test_csv_list:
         writer.writerow({'image': _tuple[0], 'MEL': _tuple[1], 'NV': _tuple[2], 'BCC': _tuple[3], 'AKIEC': _tuple[4], 'BKL': _tuple[5], 'DF': _tuple[6], 'VASC': _tuple[7]})
+
+print("--- %s seconds ---" % (time.time() - start_time))

@@ -179,23 +179,22 @@ y_val = assign_labels(t_val)
 
 print("Images imported.")
 
-no_epochs = 50
+no_epochs = 20
 lr = 1e-5
 no_classes = 7
 batch_size = 10
 
 # NÃO ESQUECER DE DEFINIR !!!
-'''
-w_0 = 24012. / 2697
-w_1 = 24012. / 15936
-w_2 = 24012. / 1272
-w_3 = 24012. / 834
-w_4 = 24012. / 2625
-w_5 = 24012. / 291
-w_6 = 24012. / 357
-'''
-class_weight = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
-# class_weight = {0: w_0, 1: w_1, 2: w_2, 3: w_3, 4: w_4, 5: w_5, 6: w_6}
+w_0 = 10608. / 1212
+w_1 = 10608. / 7149
+w_2 = 10608. / 519
+w_3 = 10608. / 360
+w_4 = 10608. / 1101
+w_5 = 10608. / 114
+w_6 = 10608. / 153
+
+#class_weight = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
+class_weight = {0: w_0, 1: w_1, 2: w_2, 3: w_3, 4: w_4, 5: w_5, 6: w_6}
 
 y_train_cat = keras.utils.to_categorical(y_train, no_classes)
 y_val_cat = keras.utils.to_categorical(y_val, no_classes)
@@ -222,14 +221,14 @@ checkpoint_path = {'vgg': "/home/ruben/Desktop/Small/Flat/vgg/cp.ckpt",
                    'resnet': "/home/ruben/Desktop/Small/Flat/resnet/cp.ckpt",
                    'densenet': "/home/ruben/Desktop/Small/Flat/densenet/cp.ckpt"}
 
-checkpoint_dir = os.path.dirname(checkpoint_path['vgg'])
+checkpoint_dir = os.path.dirname(checkpoint_path['densenet'])
 
 # Create a callback that saves the model's weights
-cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path['vgg'],
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path['densenet'],
                                                  save_weights_only=True,
                                                  verbose=1, save_best_only=True)
 
-model = create_model("vgg", tl=False)  # vgg, resnet50, resnet101, densenet121
+model = create_model("densenet", tl=True)  # vgg, resnet50, resnet101, densenet121
 model.summary()
 #######################################################################
 
@@ -239,7 +238,7 @@ model.compile(loss=keras.losses.categorical_crossentropy, optimizer=adam, metric
 fit = model.fit(x_train, y_train_cat, batch_size=batch_size, class_weight=class_weight,
                 callbacks=[scheduler_cb, cp_callback], epochs=no_epochs, shuffle=True,
                 validation_data=(x_val, y_val_cat))
-model.load_weights(['vgg'])
+model.load_weights(checkpoint_path['densenet'])
 
 ########################### Evaluate in test set ############################
 y_pred = model.predict_classes(x_val)

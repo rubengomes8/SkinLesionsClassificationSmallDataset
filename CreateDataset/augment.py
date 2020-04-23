@@ -142,6 +142,7 @@ path_labels = '/home/ruben/Desktop/smalltrain2018/labels1.csv'
 
 list_total = []
 labels_dict = {}
+counter = [0, 0, 0, 0, 0, 0, 0]
 i=0
 
 with open(path_truth, 'r') as filee:
@@ -151,23 +152,30 @@ with open(path_truth, 'r') as filee:
             i += 1
         if row[1] == '1.0': # MEL
             labels_dict[row[0]] = 1
+            counter[0] += 1
         elif row[2] == '1.0': # NV
             labels_dict[row[0]] = 2
+            counter[1] += 1
         elif row[3] == '1.0': # BCC
             labels_dict[row[0]] = 3
+            counter[2] += 1
         elif row[4] == '1.0': # AKIEC
             labels_dict[row[0]] = 4
+            counter[3] += 1
         elif row[5] == '1.0': # BKL
             labels_dict[row[0]] = 5
+            counter[4] += 1
         elif row[6] == '1.0': # DF
             labels_dict[row[0]] = 6
+            counter[5] += 1
         elif row[7] == '1.0': # VASC
             labels_dict[row[0]] = 7
+            counter[6] += 1
 filee.close()
 
-print(labels_dict)
+# print(labels_dict)
 
-file_dir = "/home/acsdc/Desktop/train2018/"
+file_dir = "/home/ruben/Desktop/smalltrain2018/"
 for root, _, files in os.walk(file_dir):
     #print(root)
     pass
