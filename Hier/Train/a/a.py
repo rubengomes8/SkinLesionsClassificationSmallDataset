@@ -14,7 +14,7 @@ start_time = time.time()
 p_train = '/home/ruben/Desktop/smalltrain2018'
 t_train = '/home/ruben/Desktop/HierSmall/a/labels.csv'
 
-p_val = '/home/ruben/Desktop/val2018'
+p_val = '/home/ruben/Desktop/smallval2018'
 t_val = '/home/ruben/Desktop/HierSmall/val/a/labels.csv'
 
 
@@ -164,8 +164,8 @@ y_train, counter = assign_labels(t_train)
 print(counter)
 
 # ALTERAR ISTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Não é 24012!
-w_0 = 24012. / int(counter['MEL'])
-w_1 = 24012. / int(counter['NMEL'])
+w_0 = 10608. / int(counter['MEL']) # 8361
+w_1 = 10608. / int(counter['NMEL']) # 2247
 class_weight = {0: w_0, 1: w_1}
 
 x_val = import_dataset(p_val, 'validation')
@@ -174,7 +174,7 @@ print(counter)
 
 print("Images imported.")
 
-no_epochs = 35
+no_epochs = 20
 lr = 1e-5
 no_classes = 2
 batch_size = 10
@@ -213,7 +213,7 @@ model.summary()
 
 adam = tf.keras.optimizers.Adam(lr=1e-5)
 model.compile(loss=keras.losses.categorical_crossentropy, optimizer=adam, metrics=['accuracy'])
-# não meti earlystop_cb
+
 fit = model.fit(x_train, y_train_cat, batch_size=batch_size, class_weight=class_weight,
                 callbacks=[scheduler_cb, cp_callback], epochs=no_epochs, shuffle=True,
                 validation_data=(x_val, y_val_cat))

@@ -130,7 +130,7 @@ ckpt3_path = "/home/ruben/Desktop/Small/Hier/c/cp.ckpt"
 ckpt4_path = "/home/ruben/Desktop/Small/Hier/d/cp.ckpt"
 ckpt5_path = "/home/ruben/Desktop/Small/Hier/e/cp.ckpt"
 
-flat_path = '/home/ruben/Desktop/Small/Flat/cp.ckpt'
+flat_path = '/home/ruben/Desktop/Small/Flat/densenet/cp.ckpt'
 
 model1.load_weights(ckpt1_path)
 model2.load_weights(ckpt2_path)
@@ -164,11 +164,11 @@ x_val = import_dataset(p_val, 'validation')
 x_flat = []
 y_flat = []
 
-eta_1 = 0.55
-eta_2 = 0.65
-eta_3 = 0.65
-eta_4 = 0.65
-eta_5 = 0.65
+eta_1 = 1
+eta_2 = 1
+eta_3 = 1
+eta_4 = 1
+eta_5 = 1
 
 if len (x_val) >= 1:
     y_pred = model1.predict_classes(x_val)

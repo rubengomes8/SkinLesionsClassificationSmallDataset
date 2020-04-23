@@ -11,41 +11,28 @@ from sklearn.metrics import confusion_matrix
 
 start_time = time.time()
 
-p_train = '/home/ruben/Desktop/smalltrain2018'
+p_train = '/home/ruben/Desktop/HierSmall/e'
 t_train = '/home/ruben/Desktop/HierSmall/e/labels.csv'
 
-p_val = '/home/ruben/Desktop/val2018'
+p_val = '/home/ruben/Desktop/HierSmall/val/e'
 t_val = '/home/ruben/Desktop/HierSmall/val/e/labels.csv'
 
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
-def import_dataset(path_dataset, mode, dataset_unsorted, dataset, val=False):
+def import_dataset(path_dataset, mode, val=False):
     dataset = []
     dataset_unsorted = []
     print("Start importing " + mode + " images...")
     for filename in os.listdir(path_dataset):
         if filename.endswith(".jpg"):
-            if val == True:
-                index = filename[:len(filename)-4]
-                if index in dict_labels_val:
-                    complete_path = os.path.join(path_dataset, filename)
-                    image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
-                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
-                    dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
-                    image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
-                    image_filename = [filename, image]
-                    dataset_unsorted.append(image_filename)
-                else:
-                    continue
-            else:
-                complete_path = os.path.join(path_dataset, filename)
-                image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
-                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
-                dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
-                image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
-                image_filename = [filename, image]
-                dataset_unsorted.append(image_filename)
+            complete_path = os.path.join(path_dataset, filename)
+            image = cv2.imread(complete_path, cv2.IMREAD_COLOR)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # from BGR to RGB
+            dim = (IMG_HEIGHT, IMG_WIDTH)  # image dimensions
+            image = cv2.resize(image, dsize=dim, interpolation=cv2.INTER_AREA)
+            image_filename = [filename, image]
+            dataset_unsorted.append(image_filename)
 
         else:
             continue
@@ -71,11 +58,9 @@ def assign_labels(path_groundtruth):
                 continue
 
             if row[1] == '1.0': # BCC
-                dict_labels_val[row[0]] = 'BCC'
                 counter['BCC'] += 1
                 target.append(0)
             elif row[2] == '1.0': # AKIEC
-                dict_labels_val[row[0]] = 'AKIEC'
                 counter['AKIEC'] += 1
                 target.append(1)
 
@@ -196,7 +181,7 @@ print("x_val: ", len(x_val))
 
 print("Images imported.")
 
-no_epochs = 2
+no_epochs = 20
 lr = 1e-5
 no_classes = 2
 batch_size = 10

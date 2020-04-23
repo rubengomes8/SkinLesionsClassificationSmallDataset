@@ -1,0 +1,90 @@
+56 14 5 7 12 0 0
+56 508 10 7 30 5 5
+0 1 34 2 2 0 1
+0 0 2 18 2 2 0
+15 10 3 10 54 2 0
+0 0 1 1 0 5 0
+0 3 0 0 0 0 9
+
+Class 0
+True Positive: 56
+True Negative: 727
+False Positive: 71
+False Negative: 38
+Sensibility for lesion 0: 0.5957446808510638
+Specificity for lesion 0: 0.9110275689223057
+Precision for lesion 0: 0.4409448818897638
+Accuracy for lesion 0: 0.8778026905829597
+BACC_0: 0.4409448818897638
+
+Class 1
+True Positive: 508
+True Negative: 243
+False Positive: 28
+False Negative: 113
+Sensibility for lesion 1: 0.8180354267310789
+Specificity for lesion 1: 0.8966789667896679
+Precision for lesion 1: 0.9477611940298507
+Accuracy for lesion 1: 0.8419282511210763
+BACC_1: 0.9477611940298507
+
+Class 2
+True Positive: 34
+True Negative: 831
+False Positive: 21
+False Negative: 6
+Sensibility for lesion 2: 0.85
+Specificity for lesion 2: 0.9753521126760564
+Precision for lesion 2: 0.6181818181818182
+Accuracy for lesion 2: 0.9697309417040358
+BACC_2: 0.6181818181818182
+
+Class 3
+True Positive: 18
+True Negative: 841
+False Positive: 27
+False Negative: 6
+Sensibility for lesion 3: 0.75
+Specificity for lesion 3: 0.9688940092165899
+Precision for lesion 3: 0.4
+Accuracy for lesion 3: 0.9630044843049327
+BACC_3: 0.4
+
+Class 4
+True Positive: 54
+True Negative: 752
+False Positive: 46
+False Negative: 40
+Sensibility for lesion 4: 0.574468085106383
+Specificity for lesion 4: 0.9423558897243107
+Precision for lesion 4: 0.54
+Accuracy for lesion 4: 0.9035874439461884
+BACC_4: 0.54
+
+Class 5
+True Positive: 5
+True Negative: 876
+False Positive: 9
+False Negative: 2
+Sensibility for lesion 5: 0.7142857142857143
+Specificity for lesion 5: 0.9898305084745763
+Precision for lesion 5: 0.35714285714285715
+Accuracy for lesion 5: 0.9876681614349776
+BACC_5: 0.35714285714285715
+
+Class 6
+True Positive: 9
+True Negative: 874
+False Positive: 6
+False Negative: 3
+Sensibility for lesion 6: 0.75
+Specificity for lesion 6: 0.9931818181818182
+Precision for lesion 6: 0.6
+Accuracy for lesion 6: 0.9899103139013453
+BACC_6: 0.6
+
+Balanced sensitivity: 0.7217905581391771
+Balanced specificity: 0.9539029819979036
+Weighted BACC: 0.7668161434977578
+
+flat: 333
