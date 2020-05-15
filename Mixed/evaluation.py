@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy
 
-ben_empty = False
+ben_empty = True
 mal_empty = False
 mel_empty = False
-flat_empty = True
+flat_empty = False
 
 if not ben_empty:
     path_ben_csv = '/home/ruben/Desktop/teste_ben_indeta.csv'
