@@ -1,5 +1,5 @@
 no_classes = 7
-path = '/home/ruben/PycharmProjects/SkinLesions2/20epochs_noTL/VGG/vgg.txt'
+path = '/home/ruben/PycharmProjects/SkinLesions6/Boss/results.txt'
 
 with open(path, "r") as f:
     data = f.readlines()

@@ -191,9 +191,6 @@ if __name__ == "__main__":
     y_train, y_a, y_b, y_c, y_d, y_e, counter_train = create_labels(t_train)
     y_val, y_val_a, y_val_b, y_val_c, y_val_d, y_val_e, counter_val = create_labels(t_val)
 
-    print(counter_train)
-    print(counter_val)
-    exit(0)
     count_labels(y_a)
     count_labels(y_b)
     count_labels(y_c)
@@ -253,14 +250,14 @@ if __name__ == "__main__":
 
     scheduler_cb = tf.keras.callbacks.LearningRateScheduler(scheduler)
 
-    class_weights_a = {0: 24012. / 18633, 1: 24012. / 5379}
-    class_weights_b = {0: 18633. / 2697, 1: 18633. / 15936}
-    class_weights_c = {0: 5379. / 2106, 1: 5379. / 3273}
-    class_weights_d = {0: 3273. / 2625, 1: 3273. / 291, 2: 3273. / 357}
-    class_weights_e = {0: 2106. / 1272, 1: 2106. / 834}
+    class_weights_a = {0: 10608. / 8361, 1: 10608. / 2247}
+    class_weights_b = {0: 8361. / 1212, 1: 8361. / 7149}
+    class_weights_c = {0: 2247. / 879, 1: 2247. / 1368}
+    class_weights_d = {0: 1368. / 1101, 1: 1368. / 114, 2: 1368. / 153}
+    class_weights_e = {0: 879. / 519, 1: 879. / 360}
     class_weights = [class_weights_a, class_weights_b, class_weights_c, class_weights_d, class_weights_e]
 
-    fit = model.fit(x_train, [y_a_cat, y_b_cat, y_c_cat, y_d_cat, y_e_cat], batch_size=10, epochs=10, callbacks=[cp_callback, scheduler_cb],
+    fit = model.fit(x_train, [y_a_cat, y_b_cat, y_c_cat, y_d_cat, y_e_cat], batch_size=10, epochs=20, callbacks=[cp_callback, scheduler_cb],
                     class_weight=class_weights, validation_data=(x_val, [y_val_a_cat, y_val_b_cat, y_val_c_cat, y_val_d_cat, y_val_e_cat])) # class_weights?
 
 

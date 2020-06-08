@@ -52,7 +52,7 @@ def calculate_acc(lesion, matrix):
     return acc, se, sp, tp/(tp+fp), prec
 
 
-matrix = read_matrix("/home/ruben/PycharmProjects/SkinLesions6/Mixed/Shared/95.txt")
+matrix = read_matrix("/home/ruben/PycharmProjects/SkinLesions6/Boss/results.txt")
 print(matrix)
 acc_total = 0.0
 se_total = 0.0

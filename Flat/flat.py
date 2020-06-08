@@ -177,6 +177,7 @@ y_train = assign_labels(t_train)
 x_val = import_dataset(p_val, 'validation')
 y_val = assign_labels(t_val)
 
+exit(0)
 print("Images imported.")
 
 no_epochs = 20
