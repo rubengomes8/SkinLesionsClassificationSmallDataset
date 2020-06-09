@@ -172,7 +172,6 @@ def update_conf_matrix(model, pred, true, conf, offset, total):
 if __name__ == '__main__':
 
     start_time = time.time()
-
     p_val = '/home/ruben/Desktop/smallval2018'
     t_val = '/home/ruben/Desktop/smallval2018/labels.csv'
 
@@ -181,7 +180,7 @@ if __name__ == '__main__':
     x_val = import_dataset(p_val, 'val')
     y_val = create_labels(t_val)
 
-    checkpoint_path = "/home/ruben/Desktop/Boss/small_dataset_weights/cp.ckpt"
+    checkpoint_path = "/home/ruben/Desktop/Boss/small_dataset_v2_weights/cp.ckpt"
     model.load_weights(checkpoint_path)
 
     y_pred = model.predict(x_val)

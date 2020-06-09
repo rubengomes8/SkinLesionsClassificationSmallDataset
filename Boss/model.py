@@ -228,7 +228,7 @@ if __name__ == "__main__":
     tf.compat.v1.enable_eager_execution()
     print(tf.executing_eagerly())
 
-    checkpoint_path = "/home/ruben/Desktop/Boss/small_dataset_weights/cp.ckpt"
+    checkpoint_path = "/home/ruben/Desktop/Boss/small_dataset_v2_weights/cp.ckpt"
     checkpoint_dir = os.path.dirname(checkpoint_path)
 
     # Create a callback that saves the model's weights
@@ -257,7 +257,7 @@ if __name__ == "__main__":
     class_weights_e = {0: 879. / 519, 1: 879. / 360}
     class_weights = [class_weights_a, class_weights_b, class_weights_c, class_weights_d, class_weights_e]
 
-    fit = model.fit(x_train, [y_a_cat, y_b_cat, y_c_cat, y_d_cat, y_e_cat], batch_size=10, epochs=20, callbacks=[cp_callback, scheduler_cb],
+    fit = model.fit(x_train, [y_a_cat, y_b_cat, y_c_cat, y_d_cat, y_e_cat], batch_size=10, epochs=no_epochs, callbacks=[cp_callback, scheduler_cb],
                     class_weight=class_weights, validation_data=(x_val, [y_val_a_cat, y_val_b_cat, y_val_c_cat, y_val_d_cat, y_val_e_cat])) # class_weights?
 
 
