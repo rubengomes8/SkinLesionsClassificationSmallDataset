@@ -20,7 +20,7 @@ def index_of_max(array, size):
             maxi = i
     return maxi
 
-def import_dataset(path_dataset, mode, dataset_unsorted, dataset):
+def import_dataset(path_dataset, mode):
     dataset = []
     dataset_unsorted = []
     print("Start importing " + mode + " images...")
