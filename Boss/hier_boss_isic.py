@@ -211,7 +211,7 @@ if __name__ == '__main__':
         for i in range(0, len(x_d)):
             index = index_of_max(y_pred_d[i, :], 3) + 4
             name_pred.append((names_d[i], index))
-mel
+
     if len(x_e) >= 1:
         for i in range(0, len(x_e)):
             index = index_of_max(y_pred_e[i, :], 2) + 2
